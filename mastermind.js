@@ -35,9 +35,10 @@ function generateHints(solution, guess){
     var j=solutionArray.indexOf(guessArray[i]);
     if(j>-1) {
       correctLetters++;
-      solutionArray[j]=i;
+      solutionArray[j]=null;
     }
   }
 
+  return correctLetterPositions+' '+correctLetters;
 
 }
