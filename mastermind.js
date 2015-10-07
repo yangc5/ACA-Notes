@@ -3,8 +3,11 @@
 var prompt = require('prompt');
 prompt.start();
 
+var colors = require('colors/safe');
+
 var board = [];
-var solution = 'ghab';
+var solution = '';
+var letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
 
 function printboard(){
   for (var i=0; i<board.length; i++) {
@@ -34,7 +37,7 @@ function generateHints(solution, guess){
     }
   }
 
-  return correctLetterPositions+' '+correctLetters;
+  return colors.red(correctLetterPositions)+' '+correctLetters;
 }
 
 function insertCode(guess) {
@@ -45,6 +48,18 @@ function checkWin(solution, guess) {
   return solution===guess;
 }
 
+function generateSolution() {
+  for (var i=0; i<4; i++) {
+    var randomIndex = getRandomInt(0, 7);
+    solution = solution + letters[randomIndex];
+  }
+  return solution;
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function getPrompt() {
   prompt.get(['guess'], function (error, result) {
     insertCode(result.guess);
@@ -52,9 +67,11 @@ function getPrompt() {
     if(checkWin(solution, result.guess)) {
       console.log('you won!');
       return false;
-    } 
+    }
     getPrompt();
   });
 }
 
+generateSolution();
+// console.log(solution);
 getPrompt();
