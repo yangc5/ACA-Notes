@@ -1,21 +1,16 @@
 'use strict';
 
-var board = [
-  [ ],
-  [ ],
-  [ ],
-  [ ],
-  [ ]
-];
+var prompt = require('prompt');
+prompt.start();
+
+var board = [];
+var solution = 'ghab';
 
 function printboard(){
   for (var i=0; i<board.length; i++) {
     console.log(board[i]);
   }
 }
-
-var solution = 'ghab';
-var guess = 'abcb';
 
 function generateHints(solution, guess){
   var solutionArray = solution.split('');
@@ -40,5 +35,26 @@ function generateHints(solution, guess){
   }
 
   return correctLetterPositions+' '+correctLetters;
-
 }
+
+function insertCode(guess) {
+  board.push(guess+' '+generateHints(solution, guess));
+}
+
+function checkWin(solution, guess) {
+  return solution===guess;
+}
+
+function getPrompt() {
+  prompt.get(['guess'], function (error, result) {
+    insertCode(result.guess);
+    printboard();
+    if(checkWin(solution, result.guess)) {
+      console.log('you won!');
+      return false;
+    } 
+    getPrompt();
+  });
+}
+
+getPrompt();
