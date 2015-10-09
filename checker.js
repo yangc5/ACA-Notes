@@ -18,8 +18,11 @@ function Board() {
     }
   };
   this.viewBoard = function() {
-    for (var i=0; i<this.grid.length; i++) {
-      console.log();
+    for (var i=0; i<8; i++) {
+      var rowOfCheckers = [];
+      for (var j=0; j<8; j++) {
+        
+      }
     }
   };
   this.createCheckers = function() {
@@ -44,5 +47,5 @@ function Board() {
   };
 
 
-  
+
 }
